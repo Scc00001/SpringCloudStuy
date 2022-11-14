@@ -1,5 +1,6 @@
 package com.scc.Mapper;
 
+
 import com.scc.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
