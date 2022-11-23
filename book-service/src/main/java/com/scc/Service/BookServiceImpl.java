@@ -10,7 +10,6 @@ public class BookServiceImpl implements BookService {
 
     @Resource
     BookMapper mapper;
-
     @Override
     public Book getBookById(int bid) {
         return mapper.getBookById(bid);

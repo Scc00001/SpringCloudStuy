@@ -8,6 +8,8 @@
         <module>book-service</module>
         <module>borrowe-service</module>
         <module>commons</module>
+        <module>eureka-service</module>
+        <module>hystrix-dashboard</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -57,6 +59,13 @@
                 <groupId>com.scc</groupId>
                 <artifactId>commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
 

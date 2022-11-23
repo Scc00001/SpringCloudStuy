@@ -10,10 +10,12 @@ import javax.annotation.Resource;
 
 @RestController
 public class BorrowController {
+
     @Resource
     BorrowService service;
+
     @RequestMapping("/borrow/{uid}")
-    UserBorrowDetail findUserBorrows(@PathVariable("uid") int uid) {
+    UserBorrowDetail findUserBorrows(@PathVariable("uid") int uid){
         return service.getUserBorrowDetailByUid(uid);
     }
 }

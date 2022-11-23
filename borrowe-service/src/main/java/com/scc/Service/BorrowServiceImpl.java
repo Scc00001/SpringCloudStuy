@@ -3,35 +3,37 @@ package com.scc.Service;
 import com.scc.Mapper.BorrowMapper;
 
 
+import com.scc.Service.client.BookClient;
+import com.scc.Service.client.UserClient;
 import com.scc.entity.Book;
 import com.scc.entity.Borrow;
 import com.scc.entity.User;
 import com.scc.entity.UserBorrowDetail;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BorrowServiceImpl implements BorrowService{
+public class BorrowServiceImpl implements BorrowService {
 
     @Resource
     BorrowMapper mapper;
 
+    @Resource
+    UserClient userClient;
+
+    @Resource
+    BookClient bookClient;
     @Override
     public UserBorrowDetail getUserBorrowDetailByUid(int uid) {
         List<Borrow> borrow = mapper.getBorrowsByUid(uid);
-        //RestTemplate支持多种方式的远程调用
-        RestTemplate template = new RestTemplate();
-        //这里通过调用getForObject来请求其他服务，并将结果自动进行封装
-        //获取User信息
-        User user = template.getForObject("http://localhost:8101/user/"+uid, User.class);
-        //获取每一本书的详细信息
+
+        User user = userClient.findUserById(uid);
         List<Book> bookList = borrow
                 .stream()
-                .map(b -> template.getForObject("http://localhost:8301/book/"+b.getBid(), Book.class))
+                .map(b -> bookClient.findBookById(b.getBid()))
                 .collect(Collectors.toList());
         return new UserBorrowDetail(user, bookList);
     }
